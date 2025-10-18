@@ -1,4 +1,4 @@
-□ Milestone 1: FastAPI serves HTML with embedded Leaflet map
+□ Milestone 1: FastAPI serves HTML with embedded Leaflet map V
 □ Milestone 2: Click map → log coordinates to console
 □ Milestone 3: Send clicked coordinates to FastAPI endpoint
 □ Milestone 4: Python receives coordinates, returns them (echo test)
