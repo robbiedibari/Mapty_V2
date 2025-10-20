@@ -18,12 +18,14 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="bg-[#e5f5f2] flex flex-col items-center justify-center min-h-screen">
+
+
       <!-- Container -->
       <div class="bg-white w-full h-screen flex flex-col md:flex-row overflow-hidden">
 
 
         <!-- Mobile Top Bar -->
-        <div class="md:hidden flex justify-between items-center p-4 border-b border-gray-200 bg-white">
+        <div class="md:hidden flex justify-between items-center p-4 border-b border-gray-200 bg-white relative z-[1000]">
           <h1 class="text-teal-500 font-semibold text-xl">Mapty</h1>
           <button id="menu-btn" class="text-teal-500 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -34,9 +36,13 @@
           </button>
         </div>
 
+        <nav>
+
+        </nav>
+
         <!-- Left Sidebar -->
         <aside id="sidebar"
-               class="bg-white w-64 border-r border-gray-200 flex-col justify-between transform md:translate-x-0
+               class="bg-amber-50 w-64 border-r border-gray-200 flex-col justify-between transform md:translate-x-0
                       -translate-x-full md:flex transition-transform duration-300 absolute md:relative z-20 h-full md:h-auto">
           <div class="p-6">
             <h2 class="text-teal-500 text-2xl font-semibold mb-6 hidden md:block">Mapty</h2>
@@ -60,7 +66,7 @@
         <!-- Main Content (Map Area) -->
         <main class="flex-1 relative bg-[#cfe8f7]">
           <!-- Search bar -->
-          <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 w-[90%] md:w-auto">
+          <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1000] w-[90%] md:w-auto bg-amber-50 rounded-lg">
             <input
               type="text"
               placeholder="Search..."
@@ -70,8 +76,7 @@
           </div>
 
           <!-- Map Placeholder -->
-          <div id="map" class="w-full h-full flex items-center justify-center text-gray-500 font-semibold">
-          </div>
+          <div id="map" class="w-full h-screen flex items-center justify-center text-gray-500 font-semibold"></div>
         </main>
             <!-- Right Toolbar -->
             <div

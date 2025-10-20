@@ -1,69 +1,36 @@
-class App {
-  #map;
-  #mapZoomLevel = 10;
-  #mapevent;
+var map;
+var defaultZoom = 17;
 
-  constructor() {
-    // get user postion:
-    this._getPosition();
+function _getPosition() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(_loadMap);
+  } else {
+    alert("Geolocation is not supported by this browser");
+    _loadMap({ coords: { latitude: 51.505, longitude: -0.09 } });
   }
-
-  _getPosition() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        this._loadMap.bind(this),
-        function () {
-          alert("Cannot get your position");
-        },
-      );
-    }
-  }
-
-  _loadMap(position) {
-    const { latitude } = position.coords;
-    const { longitude } = position.coords;
-    console.log(`https://www/google.pt/maps/@${latitude},${longitude}`);
-    const coords = [latitude, longitude];
-    this.#map = L.map("map").setView(coords, this.#mapZoomLevel);
-
-    //var map = L.map("map").setView([51.505, -0.09], 13);
-    L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.#map);
-
-    // Add accuracy circle around user's location
-    L.marker([latitude, longitude])
-      .addTo(this.#map)
-      .bindPopup("You are here...")
-      .openPopup();
-  }
-
-  //     var marker = L.marker([51.5, -0.09]).addTo(map);
-
-  //     var circle = L.circle([51.508, -0.11], {
-  //       color: "red",
-  //       fillColor: "#f03",
-  //       fillOpacity: 0.5,
-  //       radious: 5000,
-  //     }).addTo(map);
-
-  //     var polygon = L.polygon([
-  //       [51.509, -0.08],
-  //       [51.503, -0.06],
-  //       [51.51, -0.047],
-  //     ]).addTo(map);
-
-  //     var popup = L.popup()
-  //       .setLatLng([51.513, -0.09])
-  //       .setContent("I am a standalone popup.")
-  //       .openOn(map);
-
-  //   function onMapClick(e) {
-  //     alert("You clicked the map at " + e.latlng);
-
-  //   map.on("click", onMapClick);
-
-  // }
 }
-const app = new App();
+
+function _loadMap(position) {
+  const { latitude, longitude } = position.coords;
+
+  map = L.map("map").setView([latitude, longitude], defaultZoom);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  L.marker([latitude, longitude])
+    .addTo(map)
+    .bindPopup("You are here!")
+    .openPopup();
+
+  map.on("click", onMapClick);
+}
+
+function onMapClick(e) {
+  alert("You clicked at position " + e.latlng);
+  console.log("You clicked map at " + e.latlng);
+}
+_getPosition();
