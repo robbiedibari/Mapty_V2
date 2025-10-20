@@ -30,7 +30,27 @@ function _loadMap(position) {
 }
 
 function onMapClick(e) {
-  alert("You clicked at position " + e.latlng);
-  console.log("You clicked map at " + e.latlng);
+  // Get lat and long
+  const lat = e.latlng.lat;
+  const lng = e.latlng.lng;
+
+  fetch("http://127.0.0.1:8000/api/coordinates", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      latitude: lat,
+      longitude: lng,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("succes", data);
+      alert("Coordinates saved");
+    })
+    .catch((error) => {
+      console.error("Error", error);
+    });
 }
 _getPosition();
