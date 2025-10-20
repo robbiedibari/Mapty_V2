@@ -27,14 +27,16 @@ class App {
     this.#map = L.map("map").setView(coords, this.#mapZoomLevel);
 
     //var map = L.map("map").setView([51.505, -0.09], 13);
-    L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}{x}/{y}{r}.png",
-      {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors &copy; <a href"https://carto.com/attributions">CARTO</a>',
-        subdomains: "abcd",
-      },
-    ).addTo(this.#map);
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.#map);
+
+    // Add accuracy circle around user's location
+    L.marker([latitude, longitude])
+      .addTo(this.#map)
+      .bindPopup("You are here...")
+      .openPopup();
   }
 
   //     var marker = L.marker([51.5, -0.09]).addTo(map);
